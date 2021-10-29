@@ -6,9 +6,8 @@ public class Main {
         // Для получения массива случайных чисел
         int[] arr = generateRandomArray();
         System.out.println("Весь массив данных ");
-        for (int item : arr) {
-            System.out.println(item);
-        }
+        System.out.println(Arrays.toString(arr));  // Можно заменить цикл
+
         System.out.print("\n");
         // Задание 1
         System.out.println("Задание 1");
@@ -34,7 +33,7 @@ public class Main {
         System.out.println("Максимальная сумма трат за день составила " + maxMonth + " рублей");
         // Задание 3
         System.out.println("Задание 3");
-        int numDays = 30;
+        int numDays = arr.length; // число дней как длина массива
         float sumMonthFloat = 0f;
         for (int item : arr) {
             sumMonthFloat += item;
@@ -74,7 +73,7 @@ public class Main {
         int[] secondArray = new int[firstArray.length];
         System.out.println("Массив до обработки " + Arrays.toString(firstArray));
         for (int i = firstArray.length - 1; i >= 0; i--) {
-            secondArray[Math.abs(i - firstArray.length + 1)] = firstArray[i];
+            secondArray[firstArray.length - 1 - i] = firstArray[i];
         }
         System.out.println("Массив после обработки( дополнительный массив ) " + Arrays.toString(secondArray));
         // Задание 7
@@ -90,6 +89,15 @@ public class Main {
             firstArray[firstArray.length - 1 - i] = tmpValue;
         }
         System.out.println("Массив после обработки " + Arrays.toString(firstArray));
+        //Стоит попробовать сделать это в один цикл, ведь нам абсолютно не требуется идти по всем элементам.
+        //Достаточно в цикле идти от первого элемента до середины и менять первый с последним, второй с предпоследним и тд.
+        // from DisterRU
+        for (int i = 0; i <= firstArray.length/2; i++) {
+             int tmpValue = firstArray[i];
+             firstArray[i] = firstArray[firstArray.length -1-i];
+            firstArray[firstArray.length -1-i] = tmpValue;
+        }
+        System.out.println("Массив снова перевернули " + Arrays.toString(firstArray));
         // Задание 9
         System.out.print("\n");
         System.out.println("Задание 9");
@@ -120,9 +128,12 @@ public class Main {
                     break; // исключаю лишние мтерации. остановка внутренего цикла
                 }
             }
-            if (pairExist){ break; }
+            if (pairExist) {
+                break;
+            }
         }
     }
+
     public static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
         int[] arr = new int[30];
